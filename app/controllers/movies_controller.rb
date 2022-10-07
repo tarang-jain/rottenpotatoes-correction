@@ -22,10 +22,10 @@ class MoviesController < ApplicationController
     @date_css = ""
 
     if params[:sortkey] == 'title'
-      @movies.order('release_date ASC')
+      @movies = @movies.order('title ASC')
       @title_css = "hilite bg-warning"
     elsif params[:sortkey] == 'release_date'
-      @movies.order('release_date ASC')
+      @movies = @movies.order('release_date ASC')
       @date_css = "hilite bg-warning"
     end 
   end
