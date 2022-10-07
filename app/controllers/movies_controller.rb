@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
     @ratings_to_show = []
     if params[:rating] != nil
-      @ratings_to_show = params[:rating]
+      @ratings_to_show = params[:rating].keys()
     end
     if @ratings_to_show != []
       @movies = Movie.with_ratings(@ratings_to_show)
