@@ -24,6 +24,7 @@ class MoviesController < ApplicationController
 
     if session[:ratings] != nil
       @ratings_to_show = session[:ratings]
+      params[:ratings] = session[:ratings]
     else
       @ratings_to_show = @all_ratings
     end
@@ -32,8 +33,10 @@ class MoviesController < ApplicationController
 
     if session[:sortkey] == 'title'
       @movies = @movies.order('title ASC')
+      params[:sortkey] = 'title'
     elsif session[:sortkey] == 'release_date'
       @movies = @movies.order('release_date ASC')
+      params[:sortkey] = 'release_date'
     end
   end
 
