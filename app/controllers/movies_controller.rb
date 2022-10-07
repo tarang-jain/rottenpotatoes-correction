@@ -9,8 +9,21 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
     @ratings_to_show = []
+    @title_css = ""
+    @date_css = ""
     if params[:ratings] != nil
-      @ratings_to_show = params[:ratings].keys()
+      session[:ratings] = params[:ratings].keys()
+    end
+    if params[:sortkey] == 'title'
+      session[:sortkey] = 'title'
+      @title_css = "hilite bg-warning"
+    elsif params[:sortkey] == 'release_date'
+      session[:sortkey] = 'release_date'
+      @date_css = "hilite bg-warning"
+    end 
+
+    if session[:ratings] != nil
+      @ratings_to_show = session[:ratings]
     end
     if @ratings_to_show != []
       @movies = Movie.with_ratings(@ratings_to_show)
@@ -18,16 +31,11 @@ class MoviesController < ApplicationController
       @movies = Movie.with_ratings(@all_ratings)
     end
 
-    @title_css = ""
-    @date_css = ""
-
-    if params[:sortkey] == 'title'
+    if session[:sortkey] == 'title'
       @movies = @movies.order('title ASC')
-      @title_css = "hilite bg-warning"
-    elsif params[:sortkey] == 'release_date'
+    elsif session[:sortkey] == 'release_date'
       @movies = @movies.order('release_date ASC')
-      @date_css = "hilite bg-warning"
-    end 
+    end
   end
 
   def new
