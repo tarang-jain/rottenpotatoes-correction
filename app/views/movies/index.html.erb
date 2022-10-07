@@ -16,9 +16,9 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <th><%= link_to "Movie Title", movies_path(:ratings => Hash[@ratings_to_show.map {|r| [r, "1"]}], :sortkey => 'title'), id: 'title_header', class: @title_css%></th>
       <th>Rating</th>
-      <th>Release Date</th>
+      <th><%= link_to "Release Date", movies_path(:ratings => Hash[@ratings_to_show.map {|r| [r, "1"]}], :sortkey => 'release_date'), id: 'release_data_header', class: @date_css%></th>
       <th>More Info</th>
     </tr>
   </thead>

@@ -17,6 +17,17 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.with_ratings(@all_ratings)
     end
+
+    @title_css = ""
+    @date_css = ""
+
+    if params[:sortkey] == 'title'
+      @movies.order('release_date ASC')
+      @title_css = "hilite bg-warning"
+    elsif params[:sortkey] == 'release_date'
+      @movies.order('release_date ASC')
+      @date_css = "hilite bg-warning"
+    end 
   end
 
   def new
