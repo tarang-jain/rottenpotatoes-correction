@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
     end
 
     if params[:sortkey] == nil && params[:ratings] == nil && (session[:sortkey] || session[:ratings])
-      redirect_to movies_path(:ratings => session[:ratings].map{|r| [r, "1"]}, :sortkey => session[:sortkey])
+      redirect_to movies_path(:ratings => Hash[session[:ratings].map{|r| [r, "1"]}], :sortkey => session[:sortkey])
     end
 
     if session[:ratings] != nil
