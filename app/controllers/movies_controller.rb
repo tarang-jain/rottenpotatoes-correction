@@ -24,12 +24,11 @@ class MoviesController < ApplicationController
 
     if session[:ratings] != nil
       @ratings_to_show = session[:ratings]
-    end
-    if @ratings_to_show != []
-      @movies = Movie.with_ratings(@ratings_to_show)
     else
-      @movies = Movie.with_ratings(@all_ratings)
+      @ratings_to_show = @all_ratings
     end
+
+    @movies = Movie.with_ratings(@ratings_to_show)
 
     if session[:sortkey] == 'title'
       @movies = @movies.order('title ASC')
