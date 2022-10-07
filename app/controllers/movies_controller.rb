@@ -20,8 +20,12 @@ class MoviesController < ApplicationController
     elsif params[:sortkey] == 'release_date'
       session[:sortkey] = 'release_date'
       @date_css = "hilite bg-warning"
-    end 
+    end
 
+    if (params[:rating] == nil && params[:sortkey] == nil && (sessions[:sortkey] != nil || sessions[:ratings] != nil))
+      redirect_to movies_path(sortkey: session[:sortkey], ratings: session[:ratings])
+    end
+    
     if session[:ratings] != nil
       @ratings_to_show = session[:ratings]
       params[:ratings] = session[:ratings]
