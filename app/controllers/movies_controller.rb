@@ -22,13 +22,13 @@ class MoviesController < ApplicationController
       @date_css = "hilite bg-warning"
     end
 
-    if (params[:rating] == nil && params[:sortkey] == nil && (sessions[:sortkey] != nil || sessions[:ratings] != nil))
-      redirect_to movies_path(sortkey: session[:sortkey], ratings: session[:ratings])
+    if (params[:rating] == nil && params[:sortkey] == nil && (session[:sortkey] != nil || session[:ratings] != nil))
+       redirect_to movies_path(:ratings => Hash[session[:ratings].map {|r| [r, "1"]}], :sortkey => session[:sortkey])
     end
     
     if session[:ratings] != nil
       @ratings_to_show = session[:ratings]
-      params[:ratings] = session[:ratings]
+      params[:ratings] = {:ratings => Hash[@ratings_to_show.map {|r| [r, "1"]}]}
     else
       @ratings_to_show = @all_ratings
     end
